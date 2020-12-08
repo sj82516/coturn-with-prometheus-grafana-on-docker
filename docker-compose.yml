@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  coturn:
+    build: ./coturn
+    ports:
+      - "3478:3478"
+      - "3478:3478/udp"
+      - "9641:9641"
+      - "10000-10050:10000-10050"
+  prometheus:
+    build: ./prometheus
+    ports: 
+      - "9090:9090"
+    links:
+      - coturn
+  grafana:
+    image: grafana/grafana 
+    ports: 
+      - "3000:3000"
+    links: 
+      - prometheus

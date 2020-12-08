@@ -21,6 +21,6 @@ scrape_configs:
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
     static_configs:
-      - targets: ['host.docker.internal:9641']
+      - targets: ['coturn:9641']
         labels:
           group: 'production'

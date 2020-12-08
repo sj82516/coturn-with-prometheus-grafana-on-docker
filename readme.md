@@ -1,4 +1,6 @@
 # Running Coturn + Promethes + Grafana in Docker  
+Warning: Don't use it directly on production.  
+
 ## Steps
 1. Build coturn image and container
 ```
@@ -25,4 +27,6 @@ $ docker run -d --name=grafana -p 3000:3000 grafana/grafana
 4. Login grafana console, add prometheus as data source. Don't forget to use `http://host.docker.internal:9090` as URL.  
 ![](image/grafana.png)
 
-Still working on docker compose.
+-------  
+
+Or you could simply run `$ docker-compose up`
