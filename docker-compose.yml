@@ -2,11 +2,20 @@ version: "3.8"
 services:
   coturn:
     build: ./coturn
+    restart: unless-stopped
     ports:
       - "3478:3478"
       - "3478:3478/udp"
       - "9641:9641"
-      - "10000-10050:10000-10050"
+      - "10000-10005:10000-10005"
+    links: 
+      - mongo
+    depends_on: 
+      - mongo
+  mongo:
+    build: ./mongo
+    ports: 
+      - "27017:27017"
   prometheus:
     build: ./prometheus
     ports: 
