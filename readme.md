@@ -7,6 +7,7 @@ Type in
 - STUN or TURN URI: `turn:localhost:3478?transport=tcp`
 - username: `hello`
 - password: `world`
+
 ![](./images/trickle_ice.png)
 
 > Note: Chrome has some [connection issue (error code 701)](https://github.com/coturn/coturn/issues/678#issuecomment-1442674634). 
