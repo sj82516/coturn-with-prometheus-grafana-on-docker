@@ -1,12 +1,14 @@
 version: "3.8"
 services:
   coturn:
-    build: ./coturn
+    image: coturn/coturn
     ports:
       - "3478:3478"
       - "3478:3478/udp"
       - "9641:9641"
       - "10000-10050:10000-10050"
+    volumes:
+      - ./coturn/turnserver.conf:/etc/turnserver.conf:ro
   prometheus:
     build: ./prometheus
     ports: 

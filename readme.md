@@ -1,32 +1,15 @@
 # Running Coturn + Promethes + Grafana in Docker  
-Warning: Don't use it directly on production.  
+1. Run `$ docker compose up` to start services.
 
-## Steps
-1. Build coturn image and container
-```
-$ cd ./coturn
-$ docker build --tag self-coturn:0.1 .
-$ docker run -it -P  -p 9641:9641 -p 3478:3478 -p 3478:3478/udp self-coturn:0.1
-```  
+2. Test CoTurn connection.   
+Use Firefox, go to https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/.  
+Type in
+- STUN or TURN URI: `turn:localhost:3478?transport=tcp`
+- username: `hello`
+- password: `world`
 
-2. Build prometheus and container
-```
-$ cd ./prometheus
-$ docker build --tag self-prometheus:0.1 .
-$ docker run -it -P  -p 9090:9090  self-prometheus:0.1
-```
-You could check whether the `http:localhost:9090` is running.  
-Try the webrtc local connection to produce some coturn metrics and check whether there is any coturn related metrics such as `turn_status`
-![](image/turndata.png)  
+> Note: Chrome has some [connection issue (error code 701)](https://github.com/coturn/coturn/issues/678#issuecomment-1442674634). 
 
-3. start grafana container
-```
-$ docker run -d --name=grafana -p 3000:3000 grafana/grafana
-```  
-
-4. Login grafana console, add prometheus as data source. Don't forget to use `http://host.docker.internal:9090` as URL.  
-![](image/grafana.png)
-
--------  
-
-Or you could simply run `$ docker-compose up`
+3. Check Prometheus statistics.  
+Go to http://localhost:9641/metrics. This pages shows the metrics of CoTurn server.  
+It will export to Prometheus. Go to http://localhost:9090/graph and type in metrics in the previous link such as `turn_traffic_sentb`.
